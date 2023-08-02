@@ -1,11 +1,10 @@
-'use client';
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { useQuery } from '@tanstack/react-query';
+import { getCountriesData } from '@/services/covidDataService';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import 'leaflet-defaulticon-compatibility';
-import { useQuery } from '@tanstack/react-query';
-import { getCountriesData } from '@/services/covidDataService';
 
 type Props = {};
 
@@ -15,9 +14,7 @@ const MapChart = (props: Props) => {
         queryFn: getCountriesData,
     });
 
-    if (isLoading) return 'Loading...';
-    console.log(data);
-
+    if (isLoading) return <div>Loading...</div>;
     return (
         <MapContainer
             center={[51.505, -0.09]}

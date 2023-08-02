@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { Chart, TimeScale } from 'chart.js/auto';
@@ -14,9 +13,7 @@ const LineChart = () => {
         queryFn: getFluctuationData,
     });
 
-    console.log(data?.cases);
-
-    if (isLoading) return 'Loading...';
+    if (isLoading) return <div>Loading...</div>;
 
     const chartdata = {
         labels: Object.keys(data?.cases),

@@ -27,7 +27,7 @@ const DeleteContact = ({ params }: Props) => {
         } else {
             router.back();
         }
-    }, []);
+    }, [params.userId]);
 
     return (
         <div className='w-full'>

@@ -1,14 +1,19 @@
 'use client';
 import Header from '@/components/Header';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import DashboardCard from '@/components/dashboard/DashboardCard';
 import LineChart from '@/components/dashboard/LineChart';
-import MapChart from '@/components/dashboard/MapChart';
 import useAuth from '@/hooks/useAuth';
 import { getAllStats } from '@/services/covidDataService';
+import dynamic from 'next/dynamic';
 
 type Props = {};
+
+const MapChart = dynamic(() => import('@/components/dashboard/MapChart'), {
+    loading: () => <p>loading...</p>,
+    ssr: false,
+});
 
 const Dashboard = (props: Props) => {
     useAuth();
@@ -17,8 +22,7 @@ const Dashboard = (props: Props) => {
         queryFn: getAllStats,
     });
 
-    if (isLoading) return 'Loading...';
-    console.log(data);
+    if (isLoading) return <div>Loading...</div>;
     return (
         <div>
             <Header label='Covid Dashboard' />

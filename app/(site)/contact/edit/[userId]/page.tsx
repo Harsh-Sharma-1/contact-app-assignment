@@ -32,7 +32,7 @@ const EditContact = ({ params }: Props) => {
         } else {
             router.back();
         }
-    }, []);
+    }, [params.userId]);
 
     const submit = (e: React.SyntheticEvent) => {
         e.preventDefault();

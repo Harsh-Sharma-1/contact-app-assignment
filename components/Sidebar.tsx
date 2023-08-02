@@ -19,7 +19,6 @@ const MenuItem = ({ path, label }: Route) => {
     const pathname = usePathname();
     const router = useRouter();
     const active = pathname.includes(path);
-    console.log(pathname);
 
     const onClick = () => {
         router.push(path);

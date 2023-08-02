@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -10,11 +11,7 @@ const useAuth = () => {
         if (!session.data) {
             router.push('/');
         }
-    }, [session.data]);
-
-    console.log(session);
-
-    return;
+    }, [session, router]);
 };
 
 export default useAuth;
