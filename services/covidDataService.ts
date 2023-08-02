@@ -1,3 +1,5 @@
+import { Country } from "@/types/country";
+
 export async function getFluctuationData() {
     const data = await fetch(
         'https://disease.sh/v3/covid-19/historical/all?lastdays=all'
@@ -6,7 +8,7 @@ export async function getFluctuationData() {
     return data.json();
 }
 
-export async function getCountriesData() {
+export async function getCountriesData(): Promise<Country[]> {
     const data = await fetch('https://disease.sh/v3/covid-19/countries');
     return data.json();
 }
