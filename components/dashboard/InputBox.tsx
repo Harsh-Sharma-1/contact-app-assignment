@@ -4,9 +4,10 @@ import React from 'react';
 type Props = {
     label: string;
     onChange: (value: string) => void;
+    value: string;
 };
 
-const InputBox = ({ label, onChange }: Props) => {
+const InputBox = ({ label, onChange, value }: Props) => {
     return (
         <div className='w-full flex flex-col'>
             <label htmlFor=''>{label}</label>
@@ -14,6 +15,8 @@ const InputBox = ({ label, onChange }: Props) => {
                 className='p-2 focus:outline-none bg-slate-200 rounded'
                 type='text'
                 onChange={(e) => onChange(e.target.value)}
+                value={value}
+                required
             />
         </div>
     );

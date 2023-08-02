@@ -5,16 +5,14 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import 'leaflet-defaulticon-compatibility';
 import { useQuery } from '@tanstack/react-query';
+import { getCountriesData } from '@/services/covidDataService';
 
 type Props = {};
 
 const MapChart = (props: Props) => {
     const { isLoading, error, data } = useQuery({
         queryKey: ['countriesData'],
-        queryFn: () =>
-            fetch('https://disease.sh/v3/covid-19/countries').then((res) =>
-                res.json()
-            ),
+        queryFn: getCountriesData,
     });
 
     if (isLoading) return 'Loading...';
@@ -23,7 +21,7 @@ const MapChart = (props: Props) => {
     return (
         <MapContainer
             center={[51.505, -0.09]}
-            zoom={2}
+            zoom={3}
             scrollWheelZoom={false}
             style={{
                 height: '500px',

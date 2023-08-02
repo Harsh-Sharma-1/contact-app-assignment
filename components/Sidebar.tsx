@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 import { BiSolidUser } from 'react-icons/bi';
-import { signIn } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 type Props = {
     children: React.ReactNode;
@@ -40,6 +40,8 @@ const MenuItem = ({ path, label }: Route) => {
 
 const Sidebar = ({ children }: Props) => {
     const pathname = usePathname();
+    const session = useSession();
+
     const routes: Route[] = [
         {
             label: 'contact',
@@ -69,19 +71,35 @@ const Sidebar = ({ children }: Props) => {
                         ))}
                     </div>
                 </div>
-                <div className='px-3 py-5 flex justify-between'>
-                    <div className='flex gap-1 text-white items-center justify-center'>
-                        <BiSolidUser size={25} />
-                        <h1 className='text-xl'>Harsh</h1>
-                    </div>
-                    <button
-                        onClick={() => {
-                            signIn();
-                        }}
-                        className='border border-white text-white p-2 bg-transparent transition hover:text-black hover:bg-white'
-                    >
-                        Logout
-                    </button>
+                <div className='px-3 py-5'>
+                    {session.data ? (
+                        <>
+                            <div className='flex gap-1 text-white items-center justify-center'>
+                                <BiSolidUser size={25} />
+                                <h1 className='text-xl'>
+                                    {session.data.user?.name}
+                                </h1>
+                            </div>
+                            <br />
+                            <button
+                                onClick={() => {
+                                    signOut();
+                                }}
+                                className='border w-full border-white text-white p-2 bg-transparent transition hover:text-black hover:bg-white'
+                            >
+                                Logout
+                            </button>
+                        </>
+                    ) : (
+                        <button
+                            onClick={() => {
+                                signIn();
+                            }}
+                            className='border w-full border-white m-auto text-white p-2 bg-transparent transition hover:text-black hover:bg-white'
+                        >
+                            LogIn
+                        </button>
+                    )}
                 </div>
             </div>
             <div className='p-4 h-screen overflow-y-auto w-full'>

@@ -4,16 +4,14 @@ import { Line } from 'react-chartjs-2';
 import { Chart, TimeScale } from 'chart.js/auto';
 import 'chartjs-adapter-moment';
 import { useQuery } from '@tanstack/react-query';
+import { getFluctuationData } from '@/services/covidDataService';
 
 Chart.register(TimeScale);
 
 const LineChart = () => {
     const { isLoading, error, data } = useQuery({
         queryKey: ['casesData'],
-        queryFn: () =>
-            fetch(
-                'https://disease.sh/v3/covid-19/historical/all?lastdays=all'
-            ).then((res) => res.json()),
+        queryFn: getFluctuationData,
     });
 
     console.log(data?.cases);

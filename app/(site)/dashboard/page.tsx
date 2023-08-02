@@ -1,20 +1,20 @@
 'use client';
 import Header from '@/components/Header';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import DashboardCard from '@/components/dashboard/DashboardCard';
 import LineChart from '@/components/dashboard/LineChart';
 import MapChart from '@/components/dashboard/MapChart';
+import useAuth from '@/hooks/useAuth';
+import { getAllStats } from '@/services/covidDataService';
 
 type Props = {};
 
 const Dashboard = (props: Props) => {
+    useAuth();
     const { isLoading, error, data } = useQuery({
-        queryKey: ['repoData'],
-        queryFn: () =>
-            fetch('https://disease.sh/v3/covid-19/all').then((res) =>
-                res.json()
-            ),
+        queryKey: ['statsData'],
+        queryFn: getAllStats,
     });
 
     if (isLoading) return 'Loading...';
