@@ -8,4 +8,5 @@ export const authOptions: NextAuthOptions = {
             clientSecret: '9aee1215d7f91fb2cb56b680d276e091aa357d6e',
         }),
     ],
+    secret: process.env.NEXT_PUBLIC_SECRET,
 };
